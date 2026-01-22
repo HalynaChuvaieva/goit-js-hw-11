@@ -7,6 +7,7 @@ export const getImagesByQuery = query => {
       q: query,
       image_type: 'photo',
       safesearch: true,
+      orientation: 'horizontal',
     },
   }).then(response => response.data);
 };

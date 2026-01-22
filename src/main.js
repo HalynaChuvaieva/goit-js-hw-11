@@ -13,14 +13,14 @@ form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  clearGallery();
-  showLoader();
+  
   const query = form.elements['search-text'].value.trim();
   if (query === '') return;
-
+  clearGallery();
+  showLoader();
+ 
   getImagesByQuery(query)
     .then(data => {
-      hideLoader();
       if (data.hits.length === 0) {
         iziToast.show({
           message: 'Sorry, there are no images matching your search query.',
@@ -36,6 +36,15 @@ function handleSubmit(event) {
     })
     .catch(error => {
       console.error(error);
+      iziToast.show({
+          message: 'Помилка запиту',
+          position: 'topRight',
+          color: 'red',
+          icon: 'material-icons',
+          iconText: 'block',
+        });
+    }).finally(() => {
+      hideLoader();
     });
 }
 
